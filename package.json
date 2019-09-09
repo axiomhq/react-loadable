@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "MIT",
-  "repository": "thejameskyle/react-loadable",
+  "repository": "axiomhq/react-loadable",
   "files": [
     "babel.js",
     "webpack.js",
@@ -14,8 +14,8 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "babel src -d lib",
-    "start": "yarn build && webpack && babel-node example/server.js",
-    "prepublish": "yarn build"
+    "start": "npm run build && webpack && babel-node example/server.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "prop-types": "^15.5.0"
