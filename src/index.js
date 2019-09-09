@@ -146,6 +146,10 @@ function createLoadableComponent(loadFn, options) {
         loading: res.loading,
         loaded: res.loaded
       };
+
+      this._loadModule();
+
+      this._constructorFinished = true;
     }
 
     static contextTypes = {
@@ -158,13 +162,20 @@ function createLoadableComponent(loadFn, options) {
       return init();
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this._mounted = true;
-      this._loadModule();
+    }
+
+    _setState(state) {
+      if (this._constructorFinished) {
+        this.setState(state);
+      } else {
+        Object.assign(this.state, state);
+      }
     }
 
     _loadModule() {
-      if (this.context.loadable && Array.isArray(opts.modules)) {
+      if (this.context && this.context.loadable && Array.isArray(opts.modules)) {
         opts.modules.forEach(moduleName => {
           this.context.loadable.report(moduleName);
         });
@@ -176,17 +187,17 @@ function createLoadableComponent(loadFn, options) {
 
       if (typeof opts.delay === "number") {
         if (opts.delay === 0) {
-          this.setState({ pastDelay: true });
+          this._setState({ pastDelay: true });
         } else {
           this._delay = setTimeout(() => {
-            this.setState({ pastDelay: true });
+            this._setState({ pastDelay: true });
           }, opts.delay);
         }
       }
 
       if (typeof opts.timeout === "number") {
         this._timeout = setTimeout(() => {
-          this.setState({ timedOut: true });
+          this._setState({ timedOut: true });
         }, opts.timeout);
       }
 
@@ -195,7 +206,7 @@ function createLoadableComponent(loadFn, options) {
           return;
         }
 
-        this.setState({
+        this._setState({
           error: res.error,
           loaded: res.loaded,
           loading: res.loading

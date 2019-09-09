@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-yarn add react-loadable
+npm install react-loadable
 ```
 
 ## Example
