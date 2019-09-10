@@ -9,9 +9,9 @@
     "../babel",
     ["module-resolver", {
       "alias": {
-        "react-loadable": "./src/index.js",
-        "react-loadable/server": "./src/server.js",
-        "react-loadable/webpack": "./src/webpack.js",
+        "@axiomhq/react-loadable": "./src/index.js",
+        "@axiomhq/react-loadable/server": "./src/server.js",
+        "@axiomhq/react-loadable/webpack": "./src/webpack.js",
       },
     }]
   ],

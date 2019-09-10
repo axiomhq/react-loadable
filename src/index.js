@@ -99,7 +99,7 @@ function render(loaded, props) {
 
 function createLoadableComponent(loadFn, options) {
   if (!options.loading) {
-    throw new Error("react-loadable requires a `loading` component");
+    throw new Error("@axiomhq/react-loadable requires a `loading` component");
   }
 
   let opts = Object.assign(
@@ -146,10 +146,6 @@ function createLoadableComponent(loadFn, options) {
         loading: res.loading,
         loaded: res.loaded
       };
-
-      this._loadModule();
-
-      this._constructorFinished = true;
     }
 
     static contextTypes = {
@@ -164,18 +160,11 @@ function createLoadableComponent(loadFn, options) {
 
     componentDidMount() {
       this._mounted = true;
-    }
-
-    _setState(state) {
-      if (this._constructorFinished) {
-        this.setState(state);
-      } else {
-        Object.assign(this.state, state);
-      }
+      this._loadModule();
     }
 
     _loadModule() {
-      if (this.context && this.context.loadable && Array.isArray(opts.modules)) {
+      if (this.context.loadable && Array.isArray(opts.modules)) {
         opts.modules.forEach(moduleName => {
           this.context.loadable.report(moduleName);
         });
@@ -187,17 +176,17 @@ function createLoadableComponent(loadFn, options) {
 
       if (typeof opts.delay === "number") {
         if (opts.delay === 0) {
-          this._setState({ pastDelay: true });
+          this.setState({ pastDelay: true });
         } else {
           this._delay = setTimeout(() => {
-            this._setState({ pastDelay: true });
+            this.setState({ pastDelay: true });
           }, opts.delay);
         }
       }
 
       if (typeof opts.timeout === "number") {
         this._timeout = setTimeout(() => {
-          this._setState({ timedOut: true });
+          this.setState({ timedOut: true });
         }, opts.timeout);
       }
 
@@ -206,7 +195,7 @@ function createLoadableComponent(loadFn, options) {
           return;
         }
 
-        this._setState({
+        this.setState({
           error: res.error,
           loaded: res.loaded,
           loading: res.loading

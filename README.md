@@ -5,13 +5,13 @@
 ## Install
 
 ```sh
-npm install react-loadable
+npm install @axiomhq/react-loadable
 ```
 
 ## Example
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 import Loading from './my-loading-component';
 
 const LoadableComponent = Loadable({
@@ -25,16 +25,6 @@ export default class App extends React.Component {
   }
 }
 ```
-
-## Happy Customers:
-
-- ["I'm obsessed with this right now: CRA with React Router v4 and react-loadable. Free code splitting, this is so easy."](https://twitter.com/matzatorski/status/872059865350406144)
-- ["Oh hey - using loadable component I knocked 13K off my initial load. Easy win!"](https://twitter.com/AdamRackis/status/846593080992153600)
-- ["Had a look and its awesome. shaved like 50kb off our main bundle."](https://github.com/quran/quran.com-frontend/pull/701#issuecomment-287908551)
-- ["I've got that server-side rendering + code splitting + PWA ServiceWorker caching setup done 😎 (thanks to react-loadable). Now our frontend is super fast."](https://twitter.com/mxstbr/status/922375575217627136)
-- ["Using react-loadable went from 221.28 KB → 115.76 KB @ main bundle. Fucking awesome and very simple API."](https://twitter.com/evgenyrodionov/status/958821614644269057)
-- ["We've reduced our entry chunk by a lot & reduced initial load time by ~50%!"](https://github.com/jamiebuilds/react-loadable/pull/181)
-- ["React-loadable is killer! We've decreased our load size by over 50kb with only 2 files! Can't wait to see how much lower it will go."](https://github.com/jamiebuilds/react-loadable/pull/180/)
 
 ## Users
 
@@ -197,7 +187,7 @@ What about when `import()` fails? What about server-side rendering?
 Instead you can use `Loadable` to abstract away the problem.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 
 const LoadableBar = Loadable({
   loader: () => import('./components/Bar'),
@@ -506,12 +496,12 @@ Loadable({
 But don't worry too much about these options. React Loadable includes a
 [Babel plugin](#babel-plugin) to add them for you.
 
-Just add the `react-loadable/babel` plugin to your Babel config:
+Just add the `@axiomhq/react-loadable/babel` plugin to your Babel config:
 
 ```json
 {
   "plugins": [
-    "react-loadable/babel"
+    "@axiomhq/react-loadable/babel"
   ]
 }
 ```
@@ -527,7 +517,7 @@ For this, there is [`Loadable.Capture`](#loadablecapture) component which can
 be used to collect all the modules that were rendered.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 
 app.get('/', (req, res) => {
   let modules = [];
@@ -554,13 +544,13 @@ This comes in two parts.
 First we need Webpack to tell us which bundles each module lives inside. For
 this there is the [React Loadable Webpack plugin](#webpack-plugin).
 
-Import the `ReactLoadablePlugin` from `react-loadable/webpack` and include it
+Import the `ReactLoadablePlugin` from `@axiomhq/react-loadable/webpack` and include it
 in your webpack config. Pass it a `filename` for where to store the JSON data
 about our bundles.
 
 ```js
 // webpack.config.js
-import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import { ReactLoadablePlugin } from '@axiomhq/react-loadable/webpack';
 
 export default {
   plugins: [
@@ -575,11 +565,11 @@ Then we'll go back to our server and use this data to convert our modules to
 bundles.
 
 To convert from modules to bundles, import the [`getBundles`](#getbundles)
-method from `react-loadable/webpack` and the data from Webpack.
+method from `@axiomhq/react-loadable/webpack` and the data from Webpack.
 
 ```js
-import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack'
+import Loadable from '@axiomhq/react-loadable';
+import { getBundles } from '@axiomhq/react-loadable/webpack'
 import stats from './dist/react-loadable.json';
 
 app.get('/', (req, res) => {
@@ -655,7 +645,7 @@ which on resolution means that we can hydrate our app.
 // src/entry.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 import App from './components/App';
 
 Loadable.preloadReady().then(() => {
@@ -1008,7 +998,7 @@ class MyComponent extends React.Component {
 ```
 
 > **Note:** `Loadable.preloadAll()` will not work if you have more than one
-> copy of `react-loadable` in your app.
+> copy of `@axiomhq/react-loadable` in your app.
 
 [Read more about preloading on the server](#preloading-all-your-loadable-components-on-the-server).
 
@@ -1056,14 +1046,14 @@ you:
 
 ```json
 {
-  "plugins": ["react-loadable/babel"]
+  "plugins": ["@axiomhq/react-loadable/babel"]
 }
 ```
 
 **Input**
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 
 const LoadableMyComponent = Loadable({
   loader: () => import('./MyComponent'),
@@ -1080,7 +1070,7 @@ const LoadableComponents = Loadable.Map({
 **Output**
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 import path from 'path';
 
 const LoadableMyComponent = Loadable({
@@ -1109,7 +1099,7 @@ to provide you with a mapping of modules to bundles.
 
 ```js
 // webpack.config.js
-import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import { ReactLoadablePlugin } from '@axiomhq/react-loadable/webpack';
 
 export default {
   plugins: [
@@ -1127,11 +1117,11 @@ to bundles.
 
 ### `getBundles`
 
-A method exported by `react-loadable/webpack` for converting modules to
+A method exported by `@axiomhq/react-loadable/webpack` for converting modules to
 bundles.
 
 ```js
-import { getBundles } from 'react-loadable/webpack';
+import { getBundles } from '@axiomhq/react-loadable/webpack';
 
 let bundles = getBundles(stats, modules);
 ```
@@ -1154,7 +1144,7 @@ Specifying the same `loading` component or `delay` every time you use
 own Higher-Order Component (HOC) to set default options.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from '@axiomhq/react-loadable';
 import Loading from './my-loading-component';
 
 export default function MyLoadable(opts) {
@@ -1182,7 +1172,7 @@ export default class App extends React.Component {
 }
 ```
 
-Unfortunately at the moment using wrapped Loadable breaks [react-loadable/babel](#babel-plugin) so in such case you have to add required properties (`modules`, `webpack`) manually.
+Unfortunately at the moment using wrapped Loadable breaks [@axiomhq/react-loadable/babel](#babel-plugin) so in such case you have to add required properties (`modules`, `webpack`) manually.
 
 ```js
 import MyLoadable from './MyLoadable';

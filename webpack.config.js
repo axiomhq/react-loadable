@@ -38,7 +38,7 @@ module.exports = {
   devtool: 'inline-source-map',
   resolve: {
     alias: {
-      'react-loadable': path.resolve(__dirname, 'src'),
+      '@axiomhq/react-loadable': path.resolve(__dirname, 'src'),
     },
   },
   plugins: [
